@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%; width: 100%;">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Read</title>
+    <link rel="icon" href="img/地球.PNG">
+    <link rel="stylesheet" href="font.css">
+    <link rel="stylesheet" href="toread-pc.css">
+    <script type="text/javascript" src="js/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="js/FileSaver.js"></script>
+</head>
+
+<body id="body" style="height: 100%; width: 100%;">
+    <!-- 菜单栏 -->
+    <div class="menu">
+        <div class="topmenu">
+            <div class="bookmenu" style="display: block;">
+                <div class="bookshelf" title="书架" onclick="bookshelfbar()"></div>
+                <div class="search" title="搜索" onclick="searchbar()"></div>
+                <div class="settings" title="设置" onclick="settingsbar()"></div>
+                <div class="save" title="保存缓存小说信息"></div>
+            </div>
+            <div class="readmenu" style="display: none;">
+                <div class="bookshelf" title="书架" onclick="bookshelfbar()"></div>
+                <div class="list" title="目录" onclick="morebar(0)"></div>
+                <div class="save" title="保存缓存小说信息"></div>
+                <div class="readset" title="设置" onclick="readsetbar()"></div>
+                <ul class="setdisplay" style="display: none;">
+                    <li class="fontset" title="字体设置" onclick="morebar(1)"></li>
+                    <li class="paintset" title="调整背景颜色"></li>
+                    <li class="moonset" title="夜间模式" onclick="readeye()"></li>
+                    <li class="moreset" title="更多设置" onclick="morebar(2)"></li>
+                </ul>
+                <div class="setmenu" style="display: none;">
+                    <div class="booklist" style="display: none;">
+                    </div>
+                    <div class="ztsz" style="display: none;">
+                        <div class="fcmore">字体颜色：点击此处选择字体颜色</div>
+                        <div class="readfont">
+                            字体字号：<br>
+                            <input id="readztzh" type="range" min="10" max="50" value="14" onchange="readfontrange(this.value)">
+                            <input id="readsize" type="text" value="14" onchange="readfontheight(this.value)"></input>
+                        </div>
+                        <div class="readfont">
+                            调整行高：<br>
+                            <input id="readzthg" type="range" min="10" max="110" value="30" onchange="readfontheight(this.value)">
+                            <input id="readheight" type="text" value="30" onchange="readfontheight(this.value)"></input>
+                        </div>
+                        <div class="readfont">
+                            <div style="height: 1.2em;margin: 10px 0;">
+                                字体粗细：
+                                <input type="radio" name="readweight" onclick="readfontweight(0)" checked="checked" />常规
+                                <input type="radio" name="readweight" onclick="readfontweight(1)" />加粗
+                            </div>
+                        </div>
+                        选择字体：
+                        <select id="s" onchange="readfontfamily()">
+                            <option value="微软雅黑">微软雅黑</option>
+                            <option value="宋体">宋体</option>
+                            <option value="楷体">楷体</option>
+                            <option value="黑体">黑体</option>
+                            <option value="本墨今宋">本墨今宋</option>
+                            <option value="汉仪乐喵体">汉仪乐喵体</option>
+                            <option value="字酷堂清楷体">字酷堂清楷体</option>
+                            <option value="字酷堂海藏楷体">字酷堂海藏楷体</option>
+                            <option value="默陌山魂手迹">默陌山魂手迹</option>
+                            <option value="潮字社时光简">潮字社时光简</option>
+                            <option value="文鼎特颜楷">文鼎特颜楷</option>
+                            <option value="逐浪雅宋体">逐浪雅宋体</option>
+                            <option value="Brush Script Std">Brush Script Std</option>
+                            <option value="Kaushan Script">Kaushan Script</option>
+                            <option value="Lobster">Lobster</option>
+                            <option value="Stencil Std">Stencil Std</option>
+                            <option value="HoneyLight">HoneyLight</option>
+                            <option value="Lucida Grande Regular">Lucida Grande Regular</option>
+                            <option value="Berkshire Swash">Berkshire Swash</option>
+                            <option value="SeasideResortNF">SeasideResortNF</option>
+                        </select>
+                    </div>
+                    <div class="gdsz" style="display: none;">
+                        <div class="information0">书籍id：</div>
+                        <div class="information1">封面：<span onclick="coveropen()">11.png</span>
+                            <ul style="display: none;">
+                                <li onclick="changecover(11)"><img src="img/11.png" alt="11.png"></li>
+                                <li onclick="changecover(12)"><img src="img/12.png" alt="12.png"></li>
+                                <li onclick="changecover(13)"><img src="img/13.png" alt="13.png"></li>
+                                <li onclick="changecover(14)"><img src="img/14.png" alt="14.png"></li>
+                                <li onclick="changecover(15)"><img src="img/15.png" alt="15.png"></li>
+                                <li onclick="changecover(16)"><img src="img/16.png" alt="16.png"></li>
+                                <li onclick="changecover(21)"><img src="img/21.png" alt="21.png"></li>
+                                <li onclick="changecover(22)"><img src="img/22.png" alt="22.png"></li>
+                                <li onclick="changecover(23)"><img src="img/23.png" alt="23.png"></li>
+                                <li onclick="changecover(24)"><img src="img/24.png" alt="24.png"></li>
+                                <li onclick="changecover(25)"><img src="img/25.png" alt="25.png"></li>
+                                <li onclick="changecover(26)"><img src="img/26.png" alt="26.png"></li>
+                                <li onclick="changecover(3)"><img src="img/3.png" alt="3.png"></li>
+                                <li onclick="changecover(4)"><img src="img/4.png" alt="4.png"></li>
+                                <li onclick="changecover(5)"><img src="img/5.png" alt="5.png"></li>
+                                <li onclick="changecover(6)"><img src="img/6.png" alt="6.png"></li>
+                            </ul>
+                        </div>
+                        作者：<input class="information2" onchange="chifm(2)" type="text"></input>
+                        主角：<input class="information3" onchange="chifm(3)" type="text"></input>
+                        配角：<input class="information4" onchange="chifm(4)" type="text"></input>
+                        简介：<input class="information5" onchange="chifm(5)" type="text"></input>
+                        文案：<input class="information6" onchange="chifm(6)" type="text"></input>
+                        立意：<input class="information7" onchange="chifm(7)" type="text"></input>
+                        备注：<input class="information8" onchange="chifm(8)" type="text"></input>
+                        <div class="information9">
+                            分类：
+                            <select id="cp" onchange="booksort(0)">
+                                <option value="" selected:disabled style="display: none;">性向</option>
+                                <option value="言情">言情</option>
+                                <option value="耽美">耽美</option>
+                                <option value="百合">百合</option>
+                                <option value="水仙">水仙</option>
+                                <option value="无CP">无CP</option>
+                            </select>
+                            <select id="angle" onchange="booksort(1)">
+                                <option value="" selected:disabled style="display: none;">视角</option>
+                                <option value="女主">女主</option>
+                                <option value="男主">男主</option>
+                                <option value="主攻">主攻</option>
+                                <option value="主受">主受</option>
+                                <option value="互攻">互攻</option>
+                                <option value="路人">路人</option>
+                                <option value="不明">不明</option>
+                            </select>
+                            <select id="times" onchange="booksort(2)">
+                                <option value="" selected:disabled style="display: none;">时代</option>
+                                <option value="现代都市">现代都市</option>
+                                <option value="近代民国">近代民国</option>
+                                <option value="古色古香">古色古香</option>
+                                <option value="架空历史">架空历史</option>
+                                <option value="奇幻西幻">奇幻西幻</option>
+                                <option value="幻想未来">幻想未来</option>
+                                <option value="星际科幻">星际科幻</option>
+                            </select>
+                            <select id="style" onchange="booksort(3)">
+                                <option value="" selected:disabled style="display: none;">风格</option>
+                                <option value="悲剧">悲剧</option>
+                                <option value="正剧">正剧</option>
+                                <option value="轻松">轻松</option>
+                                <option value="爆笑">爆笑</option>
+                                <option value="暗黑">暗黑</option>
+                            </select>
+                            <select id="original" onchange="booksort(4)">
+                                <option value="" selected:disabled style="display: none;">原创性</option>
+                                <option value="原创">原创</option>
+                                <option value="衍生">衍生</option>
+                            </select>
+                            <select id="type" onchange="booksort(5)">
+                                <option value="" selected:disabled style="display: none;">类型</option>
+                                <option value="爱情亲情友情">爱情亲情友情</option>
+                                <option value="武侠仙侠奇幻">武侠仙侠奇幻</option>
+                                <option value="游戏科幻机甲">游戏科幻机甲</option>
+                                <option value="惊悚悬疑剧情">惊悚悬疑剧情</option>
+                                <option value="古典东方西方衍生">古典东方西方衍生</option>
+                                <option value="轻小说童话书评">轻小说童话书评</option>
+                                <option value="儿歌散文寓言童谣">儿歌散文寓言童谣</option>
+                            </select>
+                        </div>
+                        <div class="information10"><span style="position: absolute;">标签：</span>
+                            <p>
+                                <span><input type="checkbox" value="穿越时空" class="check" id="check1" style="display: none;"><label for="check1"></label>穿越时空</span>
+                                <span><input type="checkbox" value="东方玄幻" class="check" id="check2" style="display: none;"><label for="check2"></label>东方玄幻</span>
+                                <span><input type="checkbox" value="都市情缘" class="check" id="check3" style="display: none;"><label for="check3"></label>都市情缘</span>
+                                <span><input type="checkbox" value="古穿今" class="check" id="check4" style="display: none;"><label for="check4"></label>古穿今</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="古代幻想" class="check" id="check5" style="display: none;"><label for="check5"></label>古代幻想</span>
+                                <span><input type="checkbox" value="豪门世家" class="check" id="check6" style="display: none;"><label for="check6"></label>豪门世家</span>
+                                <span><input type="checkbox" value="幻想空间" class="check" id="check7" style="display: none;"><label for="check7"></label>幻想空间</span>
+                                <span><input type="checkbox" value="江湖恩怨" class="check" id="check8" style="display: none;"><label for="check8"></label>江湖恩怨</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="民国旧影" class="check" id="check9" style="display: none;"><label for="check9"></label>民国旧影</span>
+                                <span><input type="checkbox" value="魔法幻情" class="check" id="check10" style="display: none;"><label for="check10"></label>魔法幻情</span>
+                                <span><input type="checkbox" value="虐恋情深" class="check" id="check11" style="display: none;"><label for="check11"></label>虐恋情深</span>
+                                <span><input type="checkbox" value="女扮男装" class="check" id="check12" style="display: none;"><label for="check12"></label>女扮男装</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="破镜重圆" class="check" id="check13" style="display: none;"><label for="check13"></label>破镜重圆</span>
+                                <span><input type="checkbox" value="奇幻魔幻" class="check" id="check14" style="display: none;"><label for="check14"></label>奇幻魔幻</span>
+                                <span><input type="checkbox" value="前世今生" class="check" id="check15" style="display: none;"><label for="check15"></label>前世今生</span>
+                                <span><input type="checkbox" value="时代新风" class="check" id="check16" style="display: none;"><label for="check16"></label>时代新风</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="时尚流行" class="check" id="check17" style="display: none;"><label for="check17"></label>时尚流行</span>
+                                <span><input type="checkbox" value="史诗奇幻" class="check" id="check18" style="display: none;"><label for="check18"></label>史诗奇幻</span>
+                                <span><input type="checkbox" value="未来架空" class="check" id="check19" style="display: none;"><label for="check19"></label>未来架空</span>
+                                <span><input type="checkbox" value="西方罗曼" class="check" id="check20" style="display: none;"><label for="check20"></label>西方罗曼</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="西方名著" class="check" id="check21" style="display: none;"><label for="check21"></label>西方名著</span>
+                                <span><input type="checkbox" value="仙侠修真" class="check" id="check22" style="display: none;"><label for="check22"></label>仙侠修真</span>
+                                <span><input type="checkbox" value="现代架空" class="check" id="check23" style="display: none;"><label for="check23"></label>现代架空</span>
+                                <span><input type="checkbox" value="悬疑推理" class="check" id="check24" style="display: none;"><label for="check24"></label>悬疑推理</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="异国奇缘" class="check" id="check25" style="display: none;"><label for="check25"></label>异国奇缘</span>
+                                <span><input type="checkbox" value="异世大陆" class="check" id="check26" style="display: none;"><label for="check26"></label>异世大陆</span>
+                                <span><input type="checkbox" value="英美衍生" class="check" id="check27" style="display: none;"><label for="check27"></label>英美衍生</span>
+                                <span><input type="checkbox" value="综漫" class="check" id="check28" style="display: none;"><label for="check28"></label>综漫</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="咒回" class="check" id="check29" style="display: none;"><label for="check29"></label>咒回</span>
+                                <span><input type="checkbox" value="网王" class="check" id="check30" style="display: none;"><label for="check30"></label>网王</span>
+                                <span><input type="checkbox" value="银魂" class="check" id="check31" style="display: none;"><label for="check31"></label>银魂</span>
+                                <span><input type="checkbox" value="海贼王" class="check" id="check32" style="display: none;"><label for="check32"></label>海贼王</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="齐神" class="check" id="check33" style="display: none;"><label for="check33"></label>齐神</span>
+                                <span><input type="checkbox" value="文野" class="check" id="check34" style="display: none;"><label for="check34"></label>文野</span>
+                                <span><input type="checkbox" value="柯南" class="check" id="check35" style="display: none;"><label for="check35"></label>柯南</span>
+                                <span><input type="checkbox" value="火影" class="check" id="check36" style="display: none;"><label for="check36"></label>火影</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="家教" class="check" id="check37" style="display: none;"><label for="check37"></label>家教</span>
+                                <span><input type="checkbox" value="黑篮" class="check" id="check38" style="display: none;"><label for="check38"></label>黑篮</span>
+                                <span><input type="checkbox" value="猎人" class="check" id="check39" style="display: none;"><label for="check39"></label>猎人</span>
+                                <span><input type="checkbox" value="JOJO" class="check" id="check40" style="display: none;"><label for="check40"></label>JOJO</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="圣斗士" class="check" id="check41" style="display: none;"><label for="check41"></label>圣斗士</span>
+                                <span><input type="checkbox" value="穿书" class="check" id="check42" style="display: none;"><label for="check42"></label>穿书</span>
+                                <span><input type="checkbox" value="打脸" class="check" id="check43" style="display: none;"><label for="check43"></label>打脸</span>
+                                <span><input type="checkbox" value="宫斗" class="check" id="check44" style="display: none;"><label for="check44"></label>宫斗</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="婚恋" class="check" id="check45" style="display: none;"><label for="check45"></label>婚恋</span>
+                                <span><input type="checkbox" value="机甲" class="check" id="check46" style="display: none;"><label for="check46"></label>机甲</span>
+                                <span><input type="checkbox" value="基建" class="check" id="check47" style="display: none;"><label for="check47"></label>基建</span>
+                                <span><input type="checkbox" value="姐弟恋" class="check" id="check48" style="display: none;"><label for="check48"></label>姐弟恋</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="经商" class="check" id="check49" style="display: none;"><label for="check49"></label>经商</span>
+                                <span><input type="checkbox" value="竞技" class="check" id="check50" style="display: none;"><label for="check50"></label>竞技</span>
+                                <span><input type="checkbox" value="科幻" class="check" id="check51" style="display: none;"><label for="check51"></label>科幻</span>
+                                <span><input type="checkbox" value="科举" class="check" id="check52" style="display: none;"><label for="check52"></label>科举</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="恐怖" class="check" id="check53" style="display: none;"><label for="check53"></label>恐怖</span>
+                                <span><input type="checkbox" value="快穿" class="check" id="check54" style="display: none;"><label for="check54"></label>快穿</span>
+                                <span><input type="checkbox" value="恋爱合约" class="check" id="check55" style="display: none;"><label for="check55"></label>恋爱合约</span>
+                                <span><input type="checkbox" value="灵魂转换" class="check" id="check56" style="display: none;"><label for="check56"></label>灵魂转换</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="灵异神怪" class="check" id="check57" style="display: none;"><label for="check57"></label>灵异神怪</span>
+                                <span><input type="checkbox" value="马甲文" class="check" id="check58" style="display: none;"><label for="check58"></label>马甲文</span>
+                                <span><input type="checkbox" value="美食" class="check" id="check59" style="display: none;"><label for="check59"></label>美食</span>
+                                <span><input type="checkbox" value="萌宠" class="check" id="check60" style="display: none;"><label for="check60"></label>萌宠</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="末世" class="check" id="check61" style="display: none;"><label for="check61"></label>末世</span>
+                                <span><input type="checkbox" value="逆袭" class="check" id="check62" style="display: none;"><label for="check62"></label>逆袭</span>
+                                <span><input type="checkbox" value="年代文" class="check" id="check63" style="display: none;"><label for="check63"></label>年代文</span>
+                                <span><input type="checkbox" value="年下" class="check" id="check64" style="display: none;"><label for="check64"></label>年下</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="女配" class="check" id="check65" style="display: none;"><label for="check65"></label>女配</span>
+                                <span><input type="checkbox" value="女强" class="check" id="check66" style="display: none;"><label for="check66"></label>女强</span>
+                                <span><input type="checkbox" value="强强" class="check" id="check67" style="display: none;"><label for="check67"></label>强强</span>
+                                <span><input type="checkbox" value="乔装改扮" class="check" id="check68" style="display: none;"><label for="check68"></label>乔装改扮</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="青梅竹马" class="check" id="check69" style="display: none;"><label for="check69"></label>青梅竹马</span>
+                                <span><input type="checkbox" value="商战" class="check" id="check70" style="display: none;"><label for="check70"></label>商战</span>
+                                <span><input type="checkbox" value="升级流" class="check" id="check71" style="display: none;"><label for="check71"></label>升级流</span>
+                                <span><input type="checkbox" value="生子" class="check" id="check72" style="display: none;"><label for="check72"></label>生子</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="爽文" class="check" id="check73" style="display: none;"><label for="check73"></label>爽文</span>
+                                <span><input type="checkbox" value="随身空间" class="check" id="check74" style="display: none;"><label for="check74"></label>随身空间</span>
+                                <span><input type="checkbox" value="甜文" class="check" id="check75" style="display: none;"><label for="check75"></label>甜文</span>
+                                <span><input type="checkbox" value="亡灵异族" class="check" id="check76" style="display: none;"><label for="check76"></label>亡灵异族</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="网红" class="check" id="check77" style="display: none;"><label for="check77"></label>网红</span>
+                                <span><input type="checkbox" value="网配" class="check" id="check78" style="display: none;"><label for="check78"></label>网配</span>
+                                <span><input type="checkbox" value="无限流" class="check" id="check79" style="display: none;"><label for="check79"></label>无限流</span>
+                                <span><input type="checkbox" value="武侠" class="check" id="check80" style="display: none;"><label for="check80"></label>武侠</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="西幻" class="check" id="check81" style="display: none;"><label for="check81"></label>西幻</span>
+                                <span><input type="checkbox" value="系统" class="check" id="check82" style="display: none;"><label for="check82"></label>系统</span>
+                                <span><input type="checkbox" value="相爱相杀" class="check" id="check83" style="display: none;"><label for="check83"></label>相爱相杀</span>
+                                <span><input type="checkbox" value="校园" class="check" id="check84" style="display: none;"><label for="check84"></label>校园</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="星际" class="check" id="check85" style="display: none;"><label for="check85"></label>星际</span>
+                                <span><input type="checkbox" value="性别转换" class="check" id="check86" style="display: none;"><label for="check86"></label>性别转换</span>
+                                <span><input type="checkbox" value="玄学" class="check" id="check87" style="display: none;"><label for="check87"></label>玄学</span>
+                                <span><input type="checkbox" value="血族" class="check" id="check88" style="display: none;"><label for="check88"></label>血族</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="异能" class="check" id="check89" style="display: none;"><label for="check89"></label>异能</span>
+                                <span><input type="checkbox" value="游戏网游" class="check" id="check90" style="display: none;"><label for="check90"></label>游戏网游</span>
+                                <span><input type="checkbox" value="娱乐圈" class="check" id="check91" style="display: none;"><label for="check91"></label>娱乐圈</span>
+                                <span><input type="checkbox" value="宅斗" class="check" id="check92" style="display: none;"><label for="check92"></label>宅斗</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="直播" class="check" id="check93" style="display: none;"><label for="check93"></label>直播</span>
+                                <span><input type="checkbox" value="职场" class="check" id="check94" style="display: none;"><label for="check94"></label>职场</span>
+                                <span><input type="checkbox" value="种田文" class="check" id="check95" style="display: none;"><label for="check95"></label>种田文</span>
+                                <span><input type="checkbox" value="重生" class="check" id="check96" style="display: none;"><label for="check96"></label>重生</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="封神" class="check" id="check97" style="display: none;"><label for="check97"></label>封神</span>
+                                <span><input type="checkbox" value="洪荒" class="check" id="check98" style="display: none;"><label for="check98"></label>洪荒</span>
+                                <span><input type="checkbox" value="聊斋" class="check" id="check99" style="display: none;"><label for="check99"></label>聊斋</span>
+                                <span><input type="checkbox" value="古典名著" class="check" id="check100" style="display: none;"><label for="check100"></label>古典名著</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="历史衍生" class="check" id="check101" style="display: none;"><label for="check101"></label>历史衍生</span>
+                                <span><input type="checkbox" value="港台" class="check" id="check102" style="display: none;"><label for="check102"></label>港台</span>
+                                <span><input type="checkbox" value="日韩" class="check" id="check103" style="display: none;"><label for="check103"></label>日韩</span>
+                                <span><input type="checkbox" value="少女漫" class="check" id="check104" style="display: none;"><label for="check104"></label>少女漫</span>
+                            </p>
+                            <p>
+                                <span><input type="checkbox" value="少年漫" class="check" id="check105" style="display: none;"><label for="check105"></label>少年漫</span>
+                                <span><input type="checkbox" value="死神" class="check" id="check106" style="display: none;"><label for="check106"></label>死神</span>
+                                <span><input type="checkbox" value="美娱" class="check" id="check107" style="display: none;"><label for="check107"></label>美娱</span>
+                                <span><input type="checkbox" value="超级英雄" class="check" id="check108" style="display: none;"><label for="check108"></label>超级英雄</span>
+                            </p>
+                            <p>
+                                <button onclick="allchk()">全部选择</button>
+                                <button onclick="cancelchk()">取消选择</button>
+                                <button onclick="contrarychk()">反向选择</button>
+                                <button onclick="submitchk()">确定选择</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div id="hidden" title="隐藏菜单栏" onclick="hide()" style="display: block;"></div>
+        <div id="unhidden" title="打开菜单栏" onclick="unhide()" style="display: none;"></div>
+    </div>
+    <!-- 主界面 -->
+    <div class="main">
+        <!-- 书架 -->
+        <div class="bookshelfmain" style="display: block;">
+            <div class="recentbook">
+                <h2>最近阅读</h2>
+                <div class="recentbooklist"></div>
+                <!-- <div class="bookcover11" onclick="openbook(0)">
+                    <a href="#Reading?name=ToRead使用手册" class="booklink book0" title="使用手册"></a>
+                    <a href="#Reading?name=ToRead使用手册" class="bookname11">ToRead使用手册</a>
+                </div> -->
+            </div>
+            <div class="allbooks">
+                <h2 id="h2">全部图书</h2>
+                <a href="javascript:;" class="import">
+                    <input type="file" id="in" accept=".txt" onchange="upload(this.files)" title="导入书籍">
+                </a>
+            </div>
+        </div>
+        <!-- 搜索 -->
+        <div class="searchmain" style="display: none;">
+            <div class="highsearch">
+                <p>搜索</p>
+                <div class="searchtext">
+                    关键词：<input type="text" placeholder="可搜索书名、作者、主角、配角、简介、文案、立意、备注等关键字，多个关键词用空格分隔">
+                </div>
+                <form action="" class="searchsort searchcp"><span class="sstitle">性向：</span>
+                    <input type="checkbox" name="searchcp" value="不限" checked="checked"><span>不限</span>
+                    <input type="checkbox" name="searchcp" value="言情"><span>言情</span>
+                    <input type="checkbox" name="searchcp" value="耽美"><span>耽美</span>
+                    <input type="checkbox" name="searchcp" value="百合"><span>百合 </span>
+                    <input type="checkbox" name="searchcp" value="水仙"><span>水仙</span>
+                    <input type="checkbox" name="searchcp" value="无CP"><span>无CP</span>
+                </form>
+                <form action="" class="searchsort searchangle"><span class="sstitle">视角：</span>
+                    <input type="checkbox" name="searchangle" value="不限" checked="checked"><span>不限</span>
+                    <input type="checkbox" name="searchangle" value="女主"><span>女主</span>
+                    <input type="checkbox" name="searchangle" value="男主"><span>男主</span>
+                    <input type="checkbox" name="searchangle" value="主攻"><span>主攻</span>
+                    <input type="checkbox" name="searchangle" value="主受"><span>主受</span>
+                    <input type="checkbox" name="searchangle" value="互攻"><span>互攻</span><br>
+                    <input type="checkbox" name="searchangle" value="路人" style="margin-left: 85px;"><span>路人</span>
+                    <input type="checkbox" name="searchangle" value="不明"><span>不明</span>
+                </form>
+                <form action="" class="searchsort searchtimes"><span class="sstitle">时代：</span>
+                    <input type="checkbox" name="searchtimes" value="不限" checked="checked"><span>不限</span>
+                    <input type="checkbox" name="searchtimes" value="现代都市"><span>现代都市</span>
+                    <input type="checkbox" name="searchtimes" value="近代民国"><span>近代民国</span>
+                    <input type="checkbox" name="searchtimes" value="古色古香"><span>古色古香</span>
+                    <input type="checkbox" name="searchtimes" value="架空历史"><span>架空历史</span>
+                    <input type="checkbox" name="searchtimes" value="幻想未来"><span>幻想未来</span><br>
+                    <input type="checkbox" name="searchtimes" value="奇幻西幻" style="margin-left: 85px;"><span>奇幻西幻</span>
+                    <input type="checkbox" name="searchtimes" value="星际科幻"><span>星际科幻</span>
+                </form>
+                <form action="" class="searchsort searchstyle"><span class="sstitle">风格：</span>
+                    <input type="checkbox" name="searchstyle" value="不限" checked="checked"><span>不限</span>
+                    <input type="checkbox" name="searchstyle" value="悲剧"><span>悲剧</span>
+                    <input type="checkbox" name="searchstyle" value="正剧"><span>正剧</span>
+                    <input type="checkbox" name="searchstyle" value="轻松"><span>轻松</span>
+                    <input type="checkbox" name="searchstyle" value="爆笑"><span>爆笑</span>
+                    <input type="checkbox" name="searchstyle" value="暗黑"><span>暗黑</span>
+                </form>
+                <form action="" class="searchsort searchoriginal"><span class="sstitle">原创性：</span>
+                    <input type="checkbox" name="searchoriginal" value="不限" checked="checked"><span>不限</span>
+                    <input type="checkbox" name="searchoriginal" value="原创"><span>原创</span>
+                    <input type="checkbox" name="searchoriginal" value="衍生"><span>衍生</span>
+                </form>
+                <form action="" class="searchsort searchtype"><span class="sstitle">类型：</span>
+                    <input type="checkbox" name="searchtype" value="不限" checked="checked"><span>不限</span>
+                    <input type="checkbox" name="searchtype" value="爱情亲情友情"><span>爱情亲情友情</span>
+                    <input type="checkbox" name="searchtype" value="武侠仙侠奇幻"><span>武侠仙侠奇幻</span>
+                    <input type="checkbox" name="searchtype" value="游戏科技机甲"><span>游戏科技机甲</span>
+                    <input type="checkbox" name="searchtype" value="惊悚悬疑剧情"><span>惊悚悬疑剧情</span><br>
+                    <input type="checkbox" name="searchtype" value="古典东方西方衍生" style="margin-left: 85px;"><span>古典东方西方衍生</span>
+                    <input type="checkbox" name="searchtype" value="轻小说童话书评"><span>轻小说童话书评</span>
+                    <input type="checkbox" name="searchtype" value="儿歌散文寓言童谣"><span>儿歌散文寓言童谣</span>
+                </form>
+                <div class="searchbq">
+                    <div class="searchbqin">
+                        <div class="bqtitle">包含标签：</div>查询方式
+                        <input type="radio" name="sbqin" value="包含并集">包含以下任一标签的图书
+                        <input type="radio" name="sbqin" value="包含交集">同时包含以下所有标签的图书<br>
+                        包含标签<span id="sbqintext">暂无</span>
+                    </div>
+                    <div class="searchbqnotin">
+                        <div class="bqtitle">排除标签：</div>查询方式
+                        <input type="radio" name="sbqnotin" value="排除并集">排除包含以下任一标签的图书
+                        <input type="radio" name="sbqnotin" value="排除交集">排除同时包含以下所有标签的图书<br>
+                        排除标签<span id="sbqnotintext">暂无</span>
+                    </div>
+                    <div class="searchallbq"><div style="width: 85px;height: 630px;float: left;"></div>
+                        <div><span id="allbq0">穿越时空</span><button onclick="bqintext(0)">+</button><button onclick="bqnitext(0)">-</button></div>
+                        <div><span id="allbq1">东方玄幻</span><button onclick="bqintext(1)">+</button><button onclick="bqnitext(1)">-</button></div>
+                        <div><span id="allbq2">都市情缘</span><button onclick="bqintext(2)">+</button><button onclick="bqnitext(2)">-</button></div>
+                        <div><span id="allbq3">古穿今</span><button onclick="bqintext(3)">+</button><button onclick="bqnitext(3)">-</button></div>
+                        <div><span id="allbq4">古代幻想</span><button onclick="bqintext(4)">+</button><button onclick="bqnitext(4)">-</button></div>
+                        <div><span id="allbq5">豪门世家</span><button onclick="bqintext(5)">+</button><button onclick="bqnitext(5)">-</button></div>
+                        <div><span id="allbq6">幻想空间</span><button onclick="bqintext(6)">+</button><button onclick="bqnitext(6)">-</button></div>
+                        <div><span id="allbq7">江湖恩怨</span><button onclick="bqintext(7)">+</button><button onclick="bqnitext(7)">-</button></div>
+                        <div><span id="allbq8">民国旧影</span><button onclick="bqintext(8)">+</button><button onclick="bqnitext(8)">-</button></div>
+                        <div><span id="allbq9">魔法幻情</span><button onclick="bqintext(9)">+</button><button onclick="bqnitext(9)">-</button></div>
+                        <div><span id="allbq10">虐恋情深</span><button onclick="bqintext(10)">+</button><button onclick="bqnitext(10)">-</button></div>
+                        <div><span id="allbq11">女扮男装</span><button onclick="bqintext(11)">+</button><button onclick="bqnitext(11)">-</button></div>
+                        <div><span id="allbq12">破镜重圆</span><button onclick="bqintext(12)">+</button><button onclick="bqnitext(12)">-</button></div>
+                        <div><span id="allbq13">奇幻魔幻</span><button onclick="bqintext(13)">+</button><button onclick="bqnitext(13)">-</button></div>
+                        <div><span id="allbq14">前世今生</span><button onclick="bqintext(14)">+</button><button onclick="bqnitext(14)">-</button></div>
+                        <div><span id="allbq15">时代新风</span><button onclick="bqintext(15)">+</button><button onclick="bqnitext(15)">-</button></div>
+                        <div><span id="allbq16">时尚流行</span><button onclick="bqintext(16)">+</button><button onclick="bqnitext(16)">-</button></div>
+                        <div><span id="allbq17">史诗奇幻</span><button onclick="bqintext(17)">+</button><button onclick="bqnitext(17)">-</button></div>
+                        <div><span id="allbq18">未来架空</span><button onclick="bqintext(18)">+</button><button onclick="bqnitext(18)">-</button></div>
+                        <div><span id="allbq19">西方罗曼</span><button onclick="bqintext(19)">+</button><button onclick="bqnitext(19)">-</button></div>
+                        <div><span id="allbq20">西方名著</span><button onclick="bqintext(20)">+</button><button onclick="bqnitext(20)">-</button></div>
+                        <div><span id="allbq21">仙侠修真</span><button onclick="bqintext(21)">+</button><button onclick="bqnitext(21)">-</button></div>
+                        <div><span id="allbq22">现代架空</span><button onclick="bqintext(22)">+</button><button onclick="bqnitext(22)">-</button></div>
+                        <div><span id="allbq23">悬疑推理</span><button onclick="bqintext(23)">+</button><button onclick="bqnitext(23)">-</button></div>
+                        <div><span id="allbq24">异国奇缘</span><button onclick="bqintext(24)">+</button><button onclick="bqnitext(24)">-</button></div>
+                        <div><span id="allbq25">异世大陆</span><button onclick="bqintext(25)">+</button><button onclick="bqnitext(25)">-</button></div>
+                        <div><span id="allbq26">英美衍生</span><button onclick="bqintext(26)">+</button><button onclick="bqnitext(26)">-</button></div>
+                        <div><span id="allbq27">综漫</span><button onclick="bqintext(27)">+</button><button onclick="bqnitext(27)">-</button></div>
+                        <div><span id="allbq28">咒回</span><button onclick="bqintext(28)">+</button><button onclick="bqnitext(28)">-</button></div>
+                        <div><span id="allbq29">网王</span><button onclick="bqintext(29)">+</button><button onclick="bqnitext(29)">-</button></div>
+                        <div><span id="allbq30">银魂</span><button onclick="bqintext(30)">+</button><button onclick="bqnitext(30)">-</button></div>
+                        <div><span id="allbq31">海贼王</span><button onclick="bqintext(31)">+</button><button onclick="bqnitext(31)">-</button></div>
+                        <div><span id="allbq32">齐神</span><button onclick="bqintext(32)">+</button><button onclick="bqnitext(32)">-</button></div>
+                        <div><span id="allbq33">文野</span><button onclick="bqintext(33)">+</button><button onclick="bqnitext(33)">-</button></div>
+                        <div><span id="allbq34">柯南</span><button onclick="bqintext(34)">+</button><button onclick="bqnitext(34)">-</button></div>
+                        <div><span id="allbq35">火影</span><button onclick="bqintext(35)">+</button><button onclick="bqnitext(35)">-</button></div>
+                        <div><span id="allbq36">家教</span><button onclick="bqintext(36)">+</button><button onclick="bqnitext(36)">-</button></div>
+                        <div><span id="allbq37">黑篮</span><button onclick="bqintext(37)">+</button><button onclick="bqnitext(37)">-</button></div>
+                        <div><span id="allbq38">猎人</span><button onclick="bqintext(38)">+</button><button onclick="bqnitext(38)">-</button></div>
+                        <div><span id="allbq39">JOJO</span><button onclick="bqintext(39)">+</button><button onclick="bqnitext(39)">-</button></div>
+                        <div><span id="allbq40">圣斗士</span><button onclick="bqintext(40)">+</button><button onclick="bqnitext(40)">-</button></div>
+                        <div><span id="allbq41">穿书</span><button onclick="bqintext(41)">+</button><button onclick="bqnitext(41)">-</button></div>
+                        <div><span id="allbq42">打脸</span><button onclick="bqintext(42)">+</button><button onclick="bqnitext(42)">-</button></div>
+                        <div><span id="allbq43">宫斗</span><button onclick="bqintext(43)">+</button><button onclick="bqnitext(43)">-</button></div>
+                        <div><span id="allbq44">婚恋</span><button onclick="bqintext(44)">+</button><button onclick="bqnitext(44)">-</button></div>
+                        <div><span id="allbq45">机甲</span><button onclick="bqintext(45)">+</button><button onclick="bqnitext(45)">-</button></div>
+                        <div><span id="allbq46">基建</span><button onclick="bqintext(46)">+</button><button onclick="bqnitext(46)">-</button></div>
+                        <div><span id="allbq47">姐弟恋</span><button onclick="bqintext(47)">+</button><button onclick="bqnitext(47)">-</button></div>
+                        <div><span id="allbq48">经商</span><button onclick="bqintext(48)">+</button><button onclick="bqnitext(48)">-</button></div>
+                        <div><span id="allbq49">竞技</span><button onclick="bqintext(49)">+</button><button onclick="bqnitext(49)">-</button></div>
+                        <div><span id="allbq50">科幻</span><button onclick="bqintext(50)">+</button><button onclick="bqnitext(50)">-</button></div>
+                        <div><span id="allbq51">科举</span><button onclick="bqintext(51)">+</button><button onclick="bqnitext(51)">-</button></div>
+                        <div><span id="allbq52">恐怖</span><button onclick="bqintext(52)">+</button><button onclick="bqnitext(52)">-</button></div>
+                        <div><span id="allbq53">快穿</span><button onclick="bqintext(53)">+</button><button onclick="bqnitext(53)">-</button></div>
+                        <div><span id="allbq54">恋爱合约</span><button onclick="bqintext(54)">+</button><button onclick="bqnitext(54)">-</button></div>
+                        <div><span id="allbq55">灵魂转换</span><button onclick="bqintext(55)">+</button><button onclick="bqnitext(55)">-</button></div>
+                        <div><span id="allbq56">灵异神怪</span><button onclick="bqintext(56)">+</button><button onclick="bqnitext(56)">-</button></div>
+                        <div><span id="allbq57">马甲文</span><button onclick="bqintext(57)">+</button><button onclick="bqnitext(57)">-</button></div>
+                        <div><span id="allbq58">美食</span><button onclick="bqintext(58)">+</button><button onclick="bqnitext(58)">-</button></div>
+                        <div><span id="allbq59">萌宠</span><button onclick="bqintext(59)">+</button><button onclick="bqnitext(59)">-</button></div>
+                        <div><span id="allbq60">末世</span><button onclick="bqintext(60)">+</button><button onclick="bqnitext(60)">-</button></div>
+                        <div><span id="allbq61">逆袭</span><button onclick="bqintext(61)">+</button><button onclick="bqnitext(61)">-</button></div>
+                        <div><span id="allbq62">年代文</span><button onclick="bqintext(62)">+</button><button onclick="bqnitext(62)">-</button></div>
+                        <div><span id="allbq63">年下</span><button onclick="bqintext(63)">+</button><button onclick="bqnitext(63)">-</button></div>
+                        <div><span id="allbq64">女配</span><button onclick="bqintext(64)">+</button><button onclick="bqnitext(64)">-</button></div>
+                        <div><span id="allbq65">女强</span><button onclick="bqintext(65)">+</button><button onclick="bqnitext(65)">-</button></div>
+                        <div><span id="allbq66">强强</span><button onclick="bqintext(66)">+</button><button onclick="bqnitext(66)">-</button></div>
+                        <div><span id="allbq67">乔装改扮</span><button onclick="bqintext(67)">+</button><button onclick="bqnitext(67)">-</button></div>
+                        <div><span id="allbq68">青梅竹马</span><button onclick="bqintext(68)">+</button><button onclick="bqnitext(68)">-</button></div>
+                        <div><span id="allbq69">商战</span><button onclick="bqintext(69)">+</button><button onclick="bqnitext(69)">-</button></div>
+                        <div><span id="allbq70">升级流</span><button onclick="bqintext(70)">+</button><button onclick="bqnitext(70)">-</button></div>
+                        <div><span id="allbq71">生子</span><button onclick="bqintext(71)">+</button><button onclick="bqnitext(71)">-</button></div>
+                        <div><span id="allbq72">爽文</span><button onclick="bqintext(72)">+</button><button onclick="bqnitext(72)">-</button></div>
+                        <div><span id="allbq73">随身空间</span><button onclick="bqintext(73)">+</button><button onclick="bqnitext(73)">-</button></div>
+                        <div><span id="allbq74">甜文</span><button onclick="bqintext(74)">+</button><button onclick="bqnitext(74)">-</button></div>
+                        <div><span id="allbq75">亡灵异族</span><button onclick="bqintext(75)">+</button><button onclick="bqnitext(75)">-</button></div>
+                        <div><span id="allbq76">网红</span><button onclick="bqintext(76)">+</button><button onclick="bqnitext(76)">-</button></div>
+                        <div><span id="allbq77">网配</span><button onclick="bqintext(77)">+</button><button onclick="bqnitext(77)">-</button></div>
+                        <div><span id="allbq78">无限流</span><button onclick="bqintext(78)">+</button><button onclick="bqnitext(78)">-</button></div>
+                        <div><span id="allbq79">武侠</span><button onclick="bqintext(79)">+</button><button onclick="bqnitext(79)">-</button></div>
+                        <div><span id="allbq80">西幻</span><button onclick="bqintext(80)">+</button><button onclick="bqnitext(80)">-</button></div>
+                        <div><span id="allbq81">系统</span><button onclick="bqintext(81)">+</button><button onclick="bqnitext(81)">-</button></div>
+                        <div><span id="allbq82">相爱相杀</span><button onclick="bqintext(82)">+</button><button onclick="bqnitext(82)">-</button></div>
+                        <div><span id="allbq83">校园</span><button onclick="bqintext(83)">+</button><button onclick="bqnitext(83)">-</button></div>
+                        <div><span id="allbq84">星际</span><button onclick="bqintext(84)">+</button><button onclick="bqnitext(84)">-</button></div>
+                        <div><span id="allbq85">性别转换</span><button onclick="bqintext(85)">+</button><button onclick="bqnitext(85)">-</button></div>
+                        <div><span id="allbq86">玄学</span><button onclick="bqintext(86)">+</button><button onclick="bqnitext(86)">-</button></div>
+                        <div><span id="allbq87">血族</span><button onclick="bqintext(87)">+</button><button onclick="bqnitext(87)">-</button></div>
+                        <div><span id="allbq88">异能</span><button onclick="bqintext(88)">+</button><button onclick="bqnitext(88)">-</button></div>
+                        <div><span id="allbq89">游戏网游</span><button onclick="bqintext(89)">+</button><button onclick="bqnitext(89)">-</button></div>
+                        <div><span id="allbq90">娱乐圈</span><button onclick="bqintext(90)">+</button><button onclick="bqnitext(90)">-</button></div>
+                        <div><span id="allbq91">宅斗</span><button onclick="bqintext(91)">+</button><button onclick="bqnitext(91)">-</button></div>
+                        <div><span id="allbq92">直播</span><button onclick="bqintext(92)">+</button><button onclick="bqnitext(92)">-</button></div>
+                        <div><span id="allbq93">职场</span><button onclick="bqintext(93)">+</button><button onclick="bqnitext(93)">-</button></div>
+                        <div><span id="allbq94">种田文</span><button onclick="bqintext(94)">+</button><button onclick="bqnitext(94)">-</button></div>
+                        <div><span id="allbq95">重生</span><button onclick="bqintext(95)">+</button><button onclick="bqnitext(95)">-</button></div>
+                        <div><span id="allbq96">封神</span><button onclick="bqintext(96)">+</button><button onclick="bqnitext(96)">-</button></div>
+                        <div><span id="allbq97">洪荒</span><button onclick="bqintext(97)">+</button><button onclick="bqnitext(97)">-</button></div>
+                        <div><span id="allbq98">聊斋</span><button onclick="bqintext(98)">+</button><button onclick="bqnitext(98)">-</button></div>
+                        <div><span id="allbq99">古典名著</span><button onclick="bqintext(99)">+</button><button onclick="bqnitext(99)">-</button></div>
+                        <div><span id="allbq100">历史衍生</span><button onclick="bqintext(100)">+</button><button onclick="bqnitext(100)">-</button></div>
+                        <div><span id="allbq101">港台</span><button onclick="bqintext(101)">+</button><button onclick="bqnitext(101)">-</button></div>
+                        <div><span id="allbq102">日韩</span><button onclick="bqintext(102)">+</button><button onclick="bqnitext(102)">-</button></div>
+                        <div><span id="allbq103">少女漫</span><button onclick="bqintext(103)">+</button><button onclick="bqnitext(103)">-</button></div>
+                        <div><span id="allbq104">少年漫</span><button onclick="bqintext(104)">+</button><button onclick="bqnitext(104)">-</button></div>
+                        <div><span id="allbq105">死神</span><button onclick="bqintext(105)">+</button><button onclick="bqnitext(105)">-</button></div>
+                        <div><span id="allbq106">美娱</span><button onclick="bqintext(106)">+</button><button onclick="bqnitext(106)">-</button></div>
+                        <div><span id="allbq107">超级英雄</span><button onclick="bqintext(107)">+</button><button onclick="bqnitext(107)">-</button></div>
+                    </div>
+                </div>
+                <div class="hsbtn">
+                    <div style="width: 260px;height: 45px;margin: 0 auto;">
+                        <button onclick="clearsearch()">清空选择</button>
+                        <button onclick="searchlist()">查询</button>
+                    </div>
+                </div>
+                
+            </div>
+            <!-- 查询结果 -->
+            <div class="findlist" style="display: none;"></div>
+        </div>
+        <!-- 设置 -->
+        <div class="settingsmain" style="display: none;">
+            <div class="setbar">
+                <ul class="navigation">
+                    <li class="current"><a href="#section1" class="nava">启用</a></li>
+                    <li><a href="#section2" class="nava">背景</a></li>
+                    <li><a href="#section3" class="nava">字体</a></li>
+                    <li><a href="#section4" class="nava">阅读</a></li>
+                    <li><a href="#section5" class="nava">封面</a></li>
+                </ul>
+            </div>
+            <div class="wrapper">
+                <div id='section1' class="section">
+                    <h3>启用</h3>
+                    <div class="qy">
+                        <input type="radio" name="eyes" onclick="eye(0)" checked="checked" />夜间模式<br>
+                        <input type="radio" name="eyes" onclick="eye(1)" />护眼模式<br>
+                        <input type="radio" name="eyes" onclick="eye(2)" />日间模式
+                    </div>
+                </div>
+                <div id='section2' class="section">
+                    <h3>背景</h3>
+                    <div class="color">
+                        <div class="colors" style="background-color: #00d2d3;" onclick="color('#00d2d3')" title="玉尘">
+                        </div>
+                        <div class="colors" style="background-color: #55efc4;" onclick="color('#55efc4')" title="浅绿蓝色">
+                        </div>
+                        <div class="colors" style="background-color: #1abc9c;" onclick="color('#1abc9c')" title="绿松石">
+                        </div>
+                        <div class="colors" style="background-color: #16a085;" onclick="color('#16a085')" title="绿海">
+                        </div>
+                        <div class="colors" style="background-color: #2ecc71;" onclick="color('#2ecc71')" title="翠">
+                        </div>
+                        <div class="colors" style="background-color: #27ae60;" onclick="color('#27ae60')" title="内菲丽斯">
+                        </div>
+                        <div class="colors" style="background-color: #48dbfb;" onclick="color('#48dbfb')" title="美人鱼">
+                        </div>
+                        <div class="colors" style="background-color: #0abde3;" onclick="color('#0abde3')" title="蓝晶石">
+                        </div>
+                        <div class="colors" style="background-color: #54a0ff;" onclick="color('#54a0ff')" title="乔斯特·蓝">
+                        </div>
+                        <div class="colors" style="background-color: #2e86de;" onclick="color('#2e86de')" title="法兰西岛">
+                        </div>
+                        <div class="colors" style="background-color: #9b59b6;" onclick="color('#9b59b6')" title="紫晶">
+                        </div>
+                        <div class="colors" style="background-color: #8e44ad;" onclick="color('#8e44ad')" title="紫藤">
+                        </div>
+                        <div class="colors" style="background-color: #f1c40f;" onclick="color('#f1c40f')" title="太阳花">
+                        </div>
+                        <div class="colors" style="background-color: #f39c12;" onclick="color('#f39c12')" title="橙子">
+                        </div>
+                        <div class="colors" style="background-color: #e67e22;" onclick="color('#e67e22')" title="胡萝卜">
+                        </div>
+                        <div class="colors" style="background-color: #d35400;" onclick="color('#d35400')" title="南瓜">
+                        </div>
+                        <div class="colors" style="background-color: #e74c3c;" onclick="color('#e74c3c')" title="阿里扎林">
+                        </div>
+                        <div class="colors" style="background-color: #c0392b;" onclick="color('#c0392b')" title="石榴">
+                        </div>
+                        <div class="colors" style="background-color: #ecf0f1;" onclick="color('#ecf0f1')" title="云">
+                        </div>
+                        <div class="colors" style="background-color: #bdc3c7;" onclick="color('#bdc3c7')" title="银">
+                        </div>
+                        <div class="colors" style="background-color: #95a5a6;" onclick="color('#95a5a6')" title="混凝土">
+                        </div>
+                        <div class="colors" style="background-color: #7f8c8d;" onclick="color('#7f8c8d')" title="石棉">
+                        </div>
+                        <div class="colors" style="background-color: #34495e;" onclick="color('#34495e')" title="湿沥青">
+                        </div>
+                        <div class="colors" style="background-color: #2c3e50;" onclick="color('#2c3e50')" title="午夜蓝">
+                        </div>
+                    </div>
+                    <div style="width: 100%;height: 100%;float: left;">
+                        <div class="paigusu">点击选择更多颜色<br></div>
+                    </div>
+                </div>
+                <div id='section3' class="section">
+                    <h3>字体</h3>
+                    <div style="width: 100%;height: 100%;float: left;">
+                        字体颜色：<br>
+                        <div style="width: 100%;height: 35px;float: left;">
+                            <div class="fontcolor" style="background-color: #ffffff;" onclick="fontcolor('#ffffff')"
+                                title="白色"></div>
+                            <div class="fontcolor" style="background-color: #ffff00;" onclick="fontcolor('#ffff00')"
+                                title="黄色"></div>
+                            <div class="fontcolor" style="background-color: #fa9d00;" onclick="fontcolor('#fa9d00')"
+                                title="橘色"></div>
+                            <div class="fontcolor" style="background-color: #00ffbc;" onclick="fontcolor('#00ffbc')"
+                                title="青色"></div>
+                            <div class="fontcolor" style="background-color: #00f1f4;" onclick="fontcolor('#00f1f4')"
+                                title="蓝色"></div>
+                            <div class="fontcolor" style="background-color: #d79dea;" onclick="fontcolor('#d79dea')"
+                                title="紫色"></div>
+                            <div class="fontcolor" style="background-color: #1e3799;" onclick="fontcolor('#1e3799')"
+                                title="月光兰蓝"></div>
+                            <div class="fontcolor" style="background-color: #0c2461;" onclick="fontcolor('#0c2461')"
+                                title="暗蓝宝石"></div>
+                            <div class="fontcolor" style="background-color: #3c6382;" onclick="fontcolor('#3c6382')"
+                                title="好施者"></div>
+                            <div class="fontcolor" style="background-color: #0a3d62;" onclick="fontcolor('#0a3d62')"
+                                title="森林蓝调"></div>
+                            <div class="fontcolor" style="background-color: #38ada9;" onclick="fontcolor('#38ada9')"
+                                title="瀑布"></div>
+                            <div class="fontcolor" style="background-color: #079992;" onclick="fontcolor('#079992')"
+                                title="礁遇"></div><br>
+                        </div>
+                        <div class="fcmore">点击选择更多字体颜色<br></div>
+                    </div>
+                    <div class="fontsize">
+                        字体字号：<br>
+                        <input id="ztzh" type="range" min="10" max="50" value="14" onchange="fontrange(this.value)">
+                        <input id="size" type="text" value="14" onchange="fontheight(this.value)"></input>
+                    </div>
+                    <div class="fontsize">
+                        调整行高：<br>
+                        <input id="zthg" type="range" min="10" max="110" value="30" onchange="fontheight(this.value)">
+                        <input id="height" type="text" value="30" onchange="fontheight(this.value)"></input>
+                    </div>
+                    <div class="fontsize">
+                        字体粗细：<br>
+                        <div style="height: 1.2em;margin: 10px 0;">
+                            <input type="radio" name="weight" onclick="fontweight(0)" checked="checked" />常规
+                            <input type="radio" name="weight" onclick="fontweight(1)" />加粗
+                        </div>
+                    </div>
+                    <li style="cursor: pointer;" onclick="family()" id="fontname">选择字体：点击此处</li>
+                    <ul id="fontfamily" style="display: none;">
+                        <li class="family" onclick="fontfamily(0)" style="font-family: 微软雅黑;">微软雅黑</li>
+                        <li class="family" onclick="fontfamily(1)" style="font-family: 宋体;">宋体</li>
+                        <li class="family" onclick="fontfamily(2)" style="font-family: 楷体;">楷体</li>
+                        <li class="family" onclick="fontfamily(3)" style="font-family: 黑体;">黑体</li>
+                        <li class="family" onclick="fontfamily(4)" style="font-family: 本墨今宋;">本墨今宋</li>
+                        <li class="family" onclick="fontfamily(5)" style="font-family: 汉仪乐喵体;">汉仪乐喵体</li>
+                        <li class="family" onclick="fontfamily(6)" style="font-family: 字酷堂清楷体;">字酷堂清楷体</li>
+                        <li class="family" onclick="fontfamily(7)" style="font-family: 字酷堂海藏楷体;">字酷堂海藏楷体</li>
+                        <li class="family" onclick="fontfamily(8)" style="font-family: 默陌山魂手迹;">默陌山魂手迹</li>
+                        <li class="family" onclick="fontfamily(9)" style="font-family: 潮字社时光简;">潮字社时光简</li>
+                        <li class="family" onclick="fontfamily(10)" style="font-family: 文鼎特颜楷;">文鼎特颜楷</li>
+                        <li class="family" onclick="fontfamily(11)" style="font-family: 逐浪雅宋体;">逐浪雅宋体</li>
+                        <li class="family" onclick="fontfamily(12)" style="font-family: Brush Script Std;">Brush Script Std</li>
+                        <li class="family" onclick="fontfamily(13)" style="font-family: Kaushan Script;">Kaushan Script</li>
+                        <li class="family" onclick="fontfamily(14)" style="font-family: Lobster;">Lobster</li>
+                        <li class="family" onclick="fontfamily(15)" style="font-family: Stencil Std;">Stencil Std</li>
+                        <li class="family" onclick="fontfamily(16)" style="font-family: HoneyLight;">HoneyLight</li>
+                        <li class="family" onclick="fontfamily(17)" style="font-family: Lucida Grande Regular;">Lucida Grande Regular</li>
+                        <li class="family" onclick="fontfamily(18)" style="font-family: Berkshire Swash;">Berkshire Swash</li>
+                        <li class="family" onclick="fontfamily(19)" style="font-family: SeasideResortNF;">SeasideResortNF</li>
+                    </ul>
+                </div>
+                <div id='section4' class="section">
+                    <h3>阅读</h3>
+                    <input type="radio" name="eyes" onclick="eye(0)" />左右键翻书<br>
+                    <input type="radio" name="eyes" onclick="eye(1)" />上下键翻书<br>
+                    <input type="radio" name="eyes" onclick="eye(2)" />鼠标点击左右翻书<br>
+                    <input type="radio" name="eyes" onclick="eye(1)" checked="checked" />鼠标滑动翻书
+                </div>
+                <div id='section5' class="section">
+                    <h3>封面</h3>
+                    <div class="covers">
+                        <div class="cover0" style="background-image: url(img/11.png);" onclick="changebook(11)"></div>
+                        <div class="cover0" style="background-image: url(img/12.png);" onclick="changebook(12)"></div>
+                        <div class="cover0" style="background-image: url(img/13.png);" onclick="changebook(13)"></div>
+                        <div class="cover0" style="background-image: url(img/14.png);" onclick="changebook(14)"></div>
+                        <div class="cover0" style="background-image: url(img/15.png);" onclick="changebook(15)"></div>
+                        <div class="cover0" style="background-image: url(img/16.png);" onclick="changebook(16)"></div>
+                        <div class="cover img21" onclick="changebook(21)"></div>
+                        <div class="cover img22" onclick="changebook(22)"></div>
+                        <div class="cover img23" onclick="changebook(23)"></div>
+                        <div class="cover img24" onclick="changebook(24)"></div>
+                        <div class="cover img25" onclick="changebook(25)"></div>
+                        <div class="cover img26" onclick="changebook(26)"></div>
+                        <div class="cover0" style="background-image: url(img/3.png);"  onclick="changebook(3)"></div>
+                        <div class="cover0" style="background-image: url(img/4.png);"  onclick="changebook(4)"></div>
+                        <div class="cover0" style="background-image: url(img/5.png);"  onclick="changebook(5)"></div>
+                        <div class="cover0" style="background-image: url(img/6.png);"  onclick="changebook(6)"></div>
+                    </div>
+                </div>
+            <div style="width: 100%;height: 100%;float: left;"></div>
+        </div>
+    </div>
+    <!-- 阅读界面 -->
+    <div class="Reading" style="display: none;">
+        <div class="text" id="text"></div>
+    </div>
+    </div>
+</body>
+<script ript src="js/jquery.min.js"></script>
+<script src="js/pgs.js"></script>
+<script type="text/javascript" src="ToRead.js"></script>
+<script type="text/javascript" src="bookdata.js"></script>
+<script type="text/javascript">
+    document.title = "To Read";
+</script>
+
+</html>
